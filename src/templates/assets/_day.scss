@@ -1,0 +1,43 @@
+.day {
+	position: relative;
+	margin-top: 2rem;
+}
+
+.day-heading {
+	margin: 0;
+	padding-block: 1rem;
+	color: var(--pacific-blue);
+}
+
+.day-schedule {
+	padding: 1rem;
+	background-color: var(--jet);
+	box-sizing: border-box;
+	scroll-snap-type: y proximity;
+
+	&[open] {
+		--dayScheduleScroll: scroll;
+		--iconRotation: 90deg;
+	}	
+}
+
+.day-schedule-toggle {
+	color: var(--light-cyan);
+	cursor: pointer;
+	list-style: none;
+	display: flex;
+	align-items: center;
+	gap: 1rem
+}
+
+.day-schedule-toggle-icon {
+	fill: currentColor;
+	transform: rotate(var(--iconRotation));
+}
+
+.day-schedule-listings {
+	max-height: 400px;
+	overflow-y: var(--dayScheduleScroll, hidden);
+	padding-right: 1rem;
+	margin-top: 1rem;
+}

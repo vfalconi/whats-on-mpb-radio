@@ -1,0 +1,17 @@
+{% macro showtime(times, currentDate) %}
+	<time>{% if times.startDate !== currentDate %}{{ times.startDate }}&nbsp;{% endif %}{{ times.startTime }}&ndash;{% if times.startDate != times.endDate %}{{ times.endDate }}&nbsp;{% endif %}{{ times.endTime }}</time>
+{% endmacro %}
+
+{% macro timespan(start, end, day) %}
+	{% set localizedDay = day|date('D') %}
+	{% set localizedStart = start|localizedDate('D') %}
+	{% set localizedEnd = end|localizedDate('D') %}
+	{% if localizedStart != localizedDay %}
+		{% set startDay = start|localizedDate('LLLL d ') %}
+	{% endif %}
+
+	{% if localizedEnd != localizedDay %}
+		{% set endDay = end|localizedDate('LLLL d ') %}
+	{% endif %}
+	<time datetime="{{ start|machineTimeISO }}">{{ startDay }}{{ start|humanTime }}</time>&ndash;<time datetime="{{ end|machineTimeISO }}">{{ endDay }}{{ end|humanTime }}</time>
+{% endmacro %}

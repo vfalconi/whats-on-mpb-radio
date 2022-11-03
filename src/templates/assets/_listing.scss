@@ -1,0 +1,122 @@
+.listing {
+	position: relative;
+	background-color: var(--light-gray);
+	color: #101010;
+	padding: var(--listingPad, 1em);	
+	border-radius: 4px;
+	font-size: #{calc(var(--fontSize) * .75)};
+	box-sizing: border-box;
+	scroll-snap-align: center;
+
+	& + .listing {
+		margin-top: 1rem;
+	}
+}
+.listing[data-type="now-playing"] {
+	--headerBorder: var(--star-command-blue);
+	--headingMultiplier: 1.25;
+	color: var(--midnight-blue);
+	background-image: linear-gradient(
+		70deg,
+		hsl(55deg 100% 60%) 0%,
+		hsl(52deg 100% 55%) 50%,
+		hsl(49deg 100% 50%) 100%
+	);
+}
+.listing[data-type="coming-up"] {
+	--headerBorder: var(--star-command-blue);
+	--headingMultiplier: 1;
+	background-image: linear-gradient(
+		55deg,
+		hsl(239deg 94% 19%) 2%,
+		hsl(214deg 97% 30%) 38%,
+		hsl(197deg 100% 38%) 69%,
+		hsl(190deg 100% 42%) 100%
+	);
+	color:  #fff;
+
+	&::before {
+		position: absolute;
+		content: '';
+		opacity: .35;
+		inset: 0;
+		background-color: var(--eerie-black);
+	}
+
+	* {
+		position: relative;
+		z-index: 2;
+	}
+}
+
+.listing-header {
+	display: flex;
+	padding-bottom: var(--headerBottom, .5rem);
+	border-bottom: 4px solid var(--headerBorder, transparent);
+	margin-bottom: var(--headerBottom, .5rem);
+	gap: 1rem;
+	align-items: center;
+}
+
+.listing-heading {
+	margin-block: 0;
+	margin-right: auto;
+	font-size: calc(1em * var(--headingMultiplier, 1));
+}
+
+.listing-description {
+	line-height: 1.5;
+}
+
+.listing-time {
+	margin: 0;
+}
+
+.listing-disclosure {
+	display: flex;
+	flex-direction: column-reverse;
+
+	&[open] {
+		--togglePosition: static;
+		--toggleContent: 'Less ';
+	}
+}
+
+.listing-disclosure-toggle {
+	display: inline;
+	cursor: pointer;
+	font-size: .8em;
+
+	&::before {
+		content: var(--toggleContent, 'More ');
+	}
+}
+
+
+
+.listing-toolbar {
+	background-color: #fff;
+	max-width: fit-content;
+	padding: .5em 1rem;
+	border-radius: 8px;
+	margin-left: auto;
+}
+
+.listing-toolbar-link {
+	color: var(--midnight-blue);
+
+	&:hover {
+		color: var(--pacific-blue)
+	}
+}
+
+.listing-toolbar-icon {
+	fill: currentColor;
+}
+
+
+
+.coming-up-heading {
+	color: var(--cyber-yellow);
+	margin: 0;
+}

@@ -1,0 +1,161 @@
+{% import 'macros.html' as macros %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>What's on MPB Radio?</title>
+	<link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+	<header class="site-header">
+		<h1 class="site-name">What's on MPB Radio?</h1>
+		<nav class="site-nav" aria-title="Site Navigation">
+			<li><a href="/" {% if page.url == '/' %}aria-current="page"{% endif %}>Talk</a></li>
+			<li><a href="/music/" {% if page.url == '/music/' %}aria-current="page"{% endif %}>Music</a></li>
+		</nav>
+	</header>
+	<main>
+		<article class="listing" id="{{ schedule.onTheAir.start_utc|date('X') }}" data-type="now-playing">
+			<div class="listing-header">
+				<h2 class="listing-heading">{{ schedule.onTheAir.program.name }}</h2>
+				<div class="now-playing">
+					<p class="now-playing-text">Now playing</p>
+					<svg class="now-playing-icon" width="24" height="24" viewBox="0 0 48 48">
+						<g>
+							<polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" points="37.9,47 24,16.3 10.1,47"></polyline>
+							<g>
+								<polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" points="28.4,26.4 15.3,35.8 37.3,45.9"></polyline>
+								<polyline fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" points="19.6,26.4 32.7,35.8 10.7,45.9"></polyline>
+							</g>
+							<circle fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" cx="24" cy="13" r="3.1"></circle>
+							<path fill="none" stroke="#00b4d8" stroke-width="2" stroke-miterlimit="10" d="M29.3,7.6c2.9,2.9,2.9,7.7,0,10.6"></path>
+							<path fill="none" stroke="#00b4d8" stroke-width="2" stroke-miterlimit="10" d="M18.7,18.3c-2.9-2.9-2.9-7.7,0-10.6"></path>
+							<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M32.5,4.4c4.7,4.7,4.7,12.4,0,17.1"></path>
+							<path fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M15.5,21.5c-4.7-4.7-4.7-12.4,0-17.1"></path>
+							<path fill="none" stroke="#00b4d8" stroke-width="2" stroke-miterlimit="10" d="M36,1c6.6,6.6,6.6,17.3,0,23.9"></path>
+							<path fill="none" stroke="#00b4d8" stroke-width="2" stroke-miterlimit="10" d="M12,24.9C5.4,18.3,5.4,7.6,12,1"></path>
+						</g>
+					</svg>
+				</div>
+			</div>
+
+			{% if schedule.onTheAir.start_utc|date('yyyy-LL-dd') == schedule.onTheAir.end_utc|date('yyyy-LL-dd') %}
+				{% set endDay = ' ' %}
+			{% elseif schedule.onTheAir.start_utc|date('yyyy-LL-dd') != schedule.onTheAir.end_utc|date('yyyy-LL-dd') %}
+				{% set endDay = 'tomorrow at ' %}
+			{% endif %}
+
+			<p class="listing-time">Now until {{ endDay }}{{ schedule.onTheAir.end_utc|humanTime }}</p>
+
+			<p class="listing-description">{{ schedule.onTheAir.program.program_desc }}</p>
+
+			<div class="listing-toolbar">
+				<a href="#{{ schedule.onTheAir.start_utc|date('X') }}" class="listing-toolbar-link">
+					<svg width="18" height="18" class="listing-toolbar-icon">
+						<title>Share</title>
+						<use href="#icon--share" />
+					</svg>
+				</a>
+			</div>
+		</article>
+
+		{% for listing in schedule.upNext %}
+			<article class="listing" id="{{ listing.start_utc|date('X') }}" data-type="coming-up">
+				<div class="listing-header">
+					<h2 class="listing-heading">{{ listing.program.name }}</h2>
+					<p class="listing-time">{{ listing.start_utc|humanTime }}&ndash;{{ listing.end_utc|humanTime }}</p>
+				</div>
+
+				<p class="listing-description">{{ listing.program.program_desc }}</p>
+
+				<div class="listing-toolbar">
+					<a href="#{{ listing.start_utc|date('X') }}" class="listing-toolbar-link">
+						<svg width="18" height="18" class="listing-toolbar-icon">
+							<title>Share</title>
+							<use href="#icon--share" />
+						</svg>
+					</a>
+				</div>
+			</article>
+		{% endfor %}
+
+		{% for listing in schedule.laterToday %}
+			<article class="listing" id="{{ listing.start_utc|date('X') }}">
+				<div class="listing-header">
+					<h2 class="listing-heading">{{ listing.program.name }}</h2>
+					<p class="listing-time">{{ listing.start_utc|humanTime }}&ndash;{{ listing.end_utc|humanTime }}</p>
+				</div>
+				<details class="listing-disclosure">
+					<summary class="listing-disclosure-toggle">Information</summary>
+					<p class="listing-description">{{ listing.program.program_desc }}</p>
+					<div class="listing-toolbar">
+						<a href="#{{ listingID }}" class="listing-toolbar-link">
+							<svg width="18" height="18" class="listing-toolbar-icon">
+								<title>Share</title>
+								<use href="#icon--share" />
+							</svg>
+						</a>
+					</div>
+				</details>
+			</article>
+		{% endfor %}
+
+		<hr />
+
+		<h2 class="coming-up-heading">Later this week</h2>
+		{% for day, daySchedule in schedule.thisWeek %}
+			
+			<div class="day">
+				<h3 class="day-heading">{{ day|date('EEEE, LLLL d, yyyy') }}</h3>
+				<details class="day-schedule">
+					<summary class="day-schedule-toggle">
+						<svg class="day-schedule-toggle-icon" width="24" height="24">
+							<use href="#icon--chevron" />
+						</svg>
+						<span>Schedule</span>
+					</summary>
+					<div class="day-schedule-listings">
+						{% for listing in daySchedule %}
+							{% set listingID = listing.start_utc|date('X') %}
+							<article id="{{ listingID }}" class="listing">
+								<div class="listing-header">
+									<h4 class="listing-heading">{{ listing.program.name }}</h4>
+									<p class="listing-time">{{ macros.timespan(listing.start_utc, listing.end_utc, day) }}</p>
+								</div>
+								<details class="listing-disclosure">
+									<summary class="listing-disclosure-toggle">Information</summary>
+									<p class="listing-description">{{ listing.program.program_desc }}</p>
+									
+									<div class="listing-toolbar">
+										<a href="#{{ listingID }}" class="listing-toolbar-link">
+											<svg width="18" height="18" class="listing-toolbar-icon">
+												<title>Share</title>
+												<use href="#icon--share" />
+											</svg>
+										</a>
+									</div>
+								</details>
+							</article>
+						{% endfor %}
+					</div>
+				</details>
+			</div>
+		{% endfor %}
+	</main>
+	<footer class="footer">
+		<p>This page has no official association with MPB or NPR. It is entirely associated with <a href="https://tattooed.dev">this guy</a>.</p>
+		<p>Why do this? Because I didn't think MPB's schedule was very user-friendly. It's not linked on the radio page, and I got tired of having to remember which result in Google was the one I wanted.</p>
+		<p>Have content API, will build site. This page is static HTML, regenerated every half hour with <a href="https://11ty.dev">Eleventy</a>. The project is <a href="https://github.com/vfalconi/whats-on-mpb-radio">available on GitHub</a>.</p>
+	</footer>
+	<svg class="icons">
+		<symbol id="icon--share" viewBox="0 0 48 48">
+			<path stroke-width="1" d="M26,9.83753887 L26,29.0029953 C26,30.1059106 25.1122704,31 24,31 C22.8954305,31 22,30.1050211 22,29.0029953 L22,9.8310591 L19.7410775,12.0899816 C18.9672318,12.8638273 17.7121862,12.8634336 16.9256923,12.0769397 C16.1446437,11.2958911 16.149254,10.0249509 16.9126504,9.26155447 L22.5955885,3.57861638 C22.9803726,3.19383221 23.4841305,3.00047404 23.990101,3 L24.0053662,3.00597076 C24.5132928,3.00705432 25.0183527,3.19903734 25.3979318,3.57861638 L31.0808699,9.26155447 C31.8547156,10.0354002 31.8543218,11.2904458 31.0678279,12.0769397 C30.2867793,12.8579883 29.0158392,12.853378 28.2524427,12.0899816 L26,9.83753887 Z M8,40 L40,40 L40,25.9907951 C40,24.8913093 40.8877296,24 42,24 C43.1045695,24 44,24.8982124 44,25.9907951 L44,42.0092049 C44,42.5585016 43.7784277,43.0558386 43.4179801,43.4160321 C43.052133,43.7773842 42.5540487,44 42.0027084,44 L5.99729162,44 C5.44727605,44 4.94918679,43.7792902 4.58798715,43.4200851 C4.22349185,43.0523814 4,42.5550497 4,42.0092049 L4,25.9907951 C4,24.8913093 4.88772964,24 6,24 C7.1045695,24 8,24.8982124 8,25.9907951 L8,40 Z" />
+		</symbol>
+		<symbol id="icon--chevron" viewBox="0 0 100 100">
+			<path d="M74.363,56.363l-36,36C36.605,94.121,34.303,95,32,95s-4.605-0.879-6.363-2.637  c-3.516-3.513-3.516-9.214,0-12.727L55.273,50L25.637,20.363c-3.516-3.513-3.516-9.214,0-12.727c3.516-3.516,9.211-3.516,12.727,0  l36,36C77.879,47.149,77.879,52.851,74.363,56.363z"></path>
+		</symbol>
+	</svg>
+</body>
+</html>

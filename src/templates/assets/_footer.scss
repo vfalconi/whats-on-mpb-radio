@@ -1,0 +1,16 @@
+.footer {
+	margin: 10rem -1rem 0;
+	padding: 2rem 1rem;
+	background-color: #111;
+	color: #fff;
+	font-size: .75em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+
+	> * {
+		width: var(--bWidth);
+		margin: 0;
+	}
+}

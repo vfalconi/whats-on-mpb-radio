@@ -1,0 +1,81 @@
+@font-face {
+	font-family: system-ui;
+	font-style: normal;
+	font-weight: 300;
+	src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
+}
+
+:root {
+	--fontSize: 16px;
+	--midnight-blue: hsla(239, 94%, 19%, 1);
+	--star-command-blue: hsla(201, 100%, 36%, 1);
+	--pacific-blue: hsla(190, 100%, 42%, 1);
+	--middle-blue: hsla(189, 75%, 75%, 1);
+	--light-cyan: hsla(190, 77%, 88%, 1);
+	--light-gray: hsla(0, 0%, 84%, 1);
+	--cyber-yellow: hsla(49, 100%, 50%, 1);
+	--eerie-black: hsla(0, 0%, 13%, 1);
+	--jet: hsla(120, 2%, 20%, 1);
+
+	@media screen and (min-width: 320px) {
+		--fontSize: calc(16px + 6 * ((100vw - 320px) / 680));
+	}
+
+	@media screen and (min-width: 1000px) {
+		--fontSize: 22px;
+	}
+}
+
+html {
+	--bWidth: min(100%, 1200px);
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+	background-color: var(--eerie-black);
+	background-image: linear-gradient(
+		315deg,
+		hsl(0deg 0% 13%) 0%,
+		hsl(120deg 0% 13%) 11%,
+		hsl(120deg 1% 14%) 22%,
+		hsl(120deg 1% 15%) 33%,
+		hsl(120deg 1% 16%) 44%,
+		hsl(120deg 1% 17%) 56%,
+		hsl(120deg 1% 18%) 67%,
+		hsl(120deg 2% 19%) 78%,
+		hsl(120deg 2% 19%) 89%,
+		hsl(120deg 2% 20%) 100%
+	);
+	color: #111;
+	font-size: var(--fontSize);
+	font-family: "system-ui";
+	padding: 0 1rem;
+	margin: 0;
+}
+
+main {
+	margin-inline: auto;
+	box-sizing: border-box;
+	width: var(--bWidth);
+}
+
+a {
+	color: var(--cyber-yellow);
+	&:hover {
+		color: var(--middle-blue);
+	}
+}
+
+hr {
+	border: none;
+    border-top: 8px solid var(--eerie-black);
+    margin-block: 6rem;
+    border-radius: 8px;
+}
+
+
+
+.icons {
+	display: none;
+}
