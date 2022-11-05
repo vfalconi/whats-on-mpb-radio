@@ -6,8 +6,6 @@ jobs:
       - image: cimg/node:18.12.0
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run:
           name: Build templates and deploy to S3
           command: npm run build
