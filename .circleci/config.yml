@@ -16,3 +16,8 @@ jobs:
       - run:
           name: Deploy to S3
           command: npm run deploy
+
+workflows:
+  build_and_deploy:
+    jobs:
+      - build_and_deploy
