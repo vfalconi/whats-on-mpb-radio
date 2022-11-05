@@ -1,5 +1,11 @@
 name: Build and Deploy
 run-name: ${{ github.actor }} is postin' the schedule
+env:
+  SPACES_ENDPOINT: ${{ secrets.SPACES_ENDPOINT }}
+  SPACES_REGION: ${{ secrets.SPACES_REGION }}
+  SPACES_KEY: ${{ secrets.SPACES_KEY }}
+  SPACES_SECRET: ${{ secrets.SPACES_SECRET }}
+  SPACES_BUCKET: ${{ secrets.SPACES_BUCKET }}
 on:
   push:
     branches:
