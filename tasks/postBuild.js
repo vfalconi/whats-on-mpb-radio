@@ -105,6 +105,6 @@ const siteDeploy = new S3Deploy({
 	input: 'build',
 	output: 'made/whats-on-mpb-radio/',
 	invalidations: [
-		'made/whats-on-mpb-radio',
+		'/made/whats-on-mpb-radio/*',
 	],
 }, 'E2742PY375X7S8').then(p => console.log('uploads complete!'));
