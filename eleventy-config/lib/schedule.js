@@ -4,7 +4,7 @@ class Schedule {
 	constructor(url) {
 		this.baseUrl = url;
 		this.datetimes = this.#calculateTimeSpans();
-		
+
 		this.schedule = this.#fetchSchedule(this.datetimes.spanStart, this.datetimes.spanEnd)
 			.then(this.#padSchedule)
 			.then(this.#cleanup)
@@ -15,7 +15,10 @@ class Schedule {
 	}
 
 	#getDate = (date = Date.now()) => {
-		return DateTime.fromJSDate(new Date(date), { zone: 'America/Chicago' });
+		// TODO: it'd be nice to know what i did to require this DST fix. i think it has to do with converting from UTC-5 to UTC-6? somehow?
+		const dateTimeObj = DateTime.fromJSDate(new Date(date), { zone: 'America/Chicago' });
+		const dstAdjustment = (dateTimeObj.isInDST ? 0 : 1);
+		return dateTimeObj.plus({ hours: dstAdjustment });
 	};
 
 	#calculateTimeSpans = () => {
