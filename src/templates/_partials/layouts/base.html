@@ -4,16 +4,18 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>What's on MPB Radio?</title>
 	<link rel="stylesheet" href="{{ projectRoot }}css/styles.css" />
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📻</text></svg>" />
+	<meta name="generator" content="{{ eleventy.generator }}" />
 </head>
 <body>
 	<header class="site-header">
-		<h1 class="site-name">What's on MPB Radio? {{ environment }}</h1>
+		<h1 class="site-name">What's on MPB Radio?</h1>
 		<nav class="site-nav" aria-title="Site Navigation">
-			<li><a href="{{ projectRoot }}" {% if page.url == '/' %}aria-current="page"{% endif %}>Talk</a></li>
-			<li><a href="{{ musicLink }}" {% if page.url == '/music/' %}aria-current="page"{% endif %}>Music</a></li>
+			<li><a href="{{ projectRoot }}" {% if page.url == projectRoot %}aria-current="page"{% endif %}>Talk</a></li>
+			<li><a href="{{ musicLink }}" {% if page.url == musicLink %}aria-current="page"{% endif %}>Music</a></li>
 		</nav>
 	</header>
 	<main>
