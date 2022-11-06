@@ -23,6 +23,7 @@
   "homepage": "https://github.com/vfalconi/whats-on-mpb-radio#readme",
   "dependencies": {
     "@11ty/eleventy": "^1.0.2",
+    "@aws-sdk/client-cloudfront": "^3.204.0",
     "@aws-sdk/client-s3": "^3.202.0",
     "@grimlink/eleventy-plugin-sass": "^1.0.3",
     "chai": "^4.3.6",
