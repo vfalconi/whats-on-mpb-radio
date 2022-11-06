@@ -103,7 +103,7 @@ class S3Deploy {
 
 const siteDeploy = new S3Deploy({
 	input: 'build',
-	output: 'made/whats-on-mpb-radio',
+	output: 'made/whats-on-mpb-radio/',
 	invalidations: [
 		'made/whats-on-mpb-radio',
 	],
