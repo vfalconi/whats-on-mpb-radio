@@ -35,7 +35,6 @@ class S3Deploy {
 		return Promise.all(this.#readdirToBuffers(this.inputPath).map(object => {
 			console.log(process.env);
 			return this.client.s3.send(new PutObjectCommand(object)).then(data => {
-				console.log(`uploaded ${object.Bucket}/${object.Key}`)
 				return data;
 			}).catch(err => {
 				console.group(`error for ${object.Bucket}/${object.Key}`);
