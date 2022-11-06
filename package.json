@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx @11ty/eleventy --serve",
-    "build": "npx @11ty/eleventy",
+    "build": "ENVIRONMENT=production npx @11ty/eleventy",
     "deploy": "node tasks/postBuild.js",
     "debug": "DEBUG=Eleventy* npx @11ty/eleventy",
     "test": "echo \"Error: no test specified\" && exit 1"
