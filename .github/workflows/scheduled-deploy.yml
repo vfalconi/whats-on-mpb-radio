@@ -8,7 +8,7 @@ env:
   S3_BUCKET: ${{ secrets.S3_BUCKET }}
 on:
   schedule:
-    - cron:  '*/30 * * * *'
+    - cron: '1/30 * * * *'
 jobs:
   scheduled_build_and_deploy:
     runs-on: ubuntu-latest
