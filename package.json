@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx @11ty/eleventy --serve",
-    "build": "ENVIRONMENT=production npx @11ty/eleventy",
+    "start": "TZ='America/Chicago' npx @11ty/eleventy --serve",
+    "build": "TZ='America/Chicago' ENVIRONMENT=production npx @11ty/eleventy",
     "deploy": "node tasks/postBuild.js",
     "debug": "DEBUG=Eleventy* npx @11ty/eleventy",
     "test": "echo \"Error: no test specified\" && exit 1"
