@@ -1,7 +1,9 @@
 const { DateTime } = require('luxon');
 const dateObj = (d, zone = 'utc') => {
 	const date = d instanceof Date ? d : new Date(d);
-	return DateTime.fromJSDate(date, { zone });
+	const dateTimeObj = DateTime.fromJSDate(date, { zone });
+	const dstAdjustment = (dateTimeObj.isInDST ? 0 : 1);
+	return dateTimeObj.plus({ hours: dstAdjustment });
 };
 
 module.exports.date = (date, format) => {
@@ -17,11 +19,11 @@ module.exports.htmlDateString = (date) => {
 };
 
 module.exports.humanDate = (date) => {
-	return dateObj(date, 'America/Chicago').toLocaleString(DateTime.DATE_SIMPLE);
+	return dateObj(date, 'America/Chicago').toFormat('LLL d, YYYY');
 };
 
 module.exports.humanTime = (date) => {
-	return dateObj(date, 'America/Chicago').toLocaleString(DateTime.TIME_SIMPLE);
+	return dateObj(date, 'America/Chicago').toFormat('h:mm a');
 }
 
 module.exports.machineTime = (date) => {

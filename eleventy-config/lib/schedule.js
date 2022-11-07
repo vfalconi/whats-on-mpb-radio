@@ -22,7 +22,7 @@ class Schedule {
 	};
 
 	#calculateTimeSpans = () => {
-		const today = this.#getDate();
+		const today = DateTime.now()
 		const spanStart = today.startOf('week');
 		const spanEnd = today.endOf('week');
 		const paddingStart = spanEnd.plus({ days: 1 });
