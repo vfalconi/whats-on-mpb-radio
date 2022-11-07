@@ -28,7 +28,7 @@ class Schedule {
 		const paddingStart = spanEnd.plus({ days: 1 });
 		const paddingEnd = paddingStart.endOf('week');
 		const backfillLength = Math.floor(today.diff(spanStart, 'days').toObject().days);
-		const backfillEnd = spanEnd.plus({ days: (backfillLength - 1) });
+		const backfillEnd = spanEnd.plus({ days: (backfillLength ) });
 		
 		return {
 			today,
